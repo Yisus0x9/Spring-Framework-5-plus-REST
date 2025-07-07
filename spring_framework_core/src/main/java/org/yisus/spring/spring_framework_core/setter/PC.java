@@ -1,4 +1,4 @@
-package org.yisus.spring.spring_framework_core;
+package org.yisus.spring.spring_framework_core.setter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
