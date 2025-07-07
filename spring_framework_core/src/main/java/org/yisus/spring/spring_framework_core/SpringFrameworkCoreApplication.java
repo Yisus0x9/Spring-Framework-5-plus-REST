@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.yisus.spring.spring_framework_core.atributo.Coche;
 import org.yisus.spring.spring_framework_core.constructor.PlacaMadre;
+import org.yisus.spring.spring_framework_core.qualifiers.Animal;
+import org.yisus.spring.spring_framework_core.qualifiers.Nido;
 import org.yisus.spring.spring_framework_core.qualifiers.Perro;
+import org.yisus.spring.spring_framework_core.qualifiers.Volador;
 import org.yisus.spring.spring_framework_core.setter.PC;
 
 @SpringBootApplication
@@ -27,8 +30,11 @@ public class SpringFrameworkCoreApplication {
         PC pc=context.getBean(PC.class);
         log.info("{}",pc);
 
-        Perro perro=context.getBean(Perro.class);
-        log.info("{}",perro);
+        Nido nido=context.getBean( Nido.class);
+        nido.print();
+
+        Volador volador=context.getBean(Volador.class);
+        volador.volar();
     }
 
 }

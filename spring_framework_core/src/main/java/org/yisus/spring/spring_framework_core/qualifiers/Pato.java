@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("pp") // Puedes usar múltiples nombres de bean
 public class Pato extends Animal implements Volador{
 
     private static Logger log= LoggerFactory.getLogger(Pato.class);
