@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.yisus.spring.spring_framework_core.atributo.Coche;
 import org.yisus.spring.spring_framework_core.constructor.PlacaMadre;
+import org.yisus.spring.spring_framework_core.profiles.EnviromentService;
 import org.yisus.spring.spring_framework_core.qualifiers.Animal;
 import org.yisus.spring.spring_framework_core.qualifiers.Nido;
 import org.yisus.spring.spring_framework_core.qualifiers.Perro;
@@ -35,6 +36,9 @@ public class SpringFrameworkCoreApplication {
 
         Volador volador=context.getBean(Volador.class);
         volador.volar();
+
+        EnviromentService env= context.getBean(EnviromentService.class);
+        log.info("{}",env.getEnviromentService());
     }
 
 }
