@@ -5,7 +5,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 import org.yisus.spring.spring_framework_core.atributo.Coche;
+import org.yisus.spring.spring_framework_core.autowire.MultipleBeans;
 import org.yisus.spring.spring_framework_core.constructor.PlacaMadre;
 import org.yisus.spring.spring_framework_core.profiles.EnviromentService;
 import org.yisus.spring.spring_framework_core.qualifiers.Animal;
@@ -18,7 +21,11 @@ import org.yisus.spring.spring_framework_core.setter.PC;
 
 @SpringBootApplication
 public class SpringFrameworkCoreApplication {
-    private static final Logger log= LoggerFactory.getLogger(SpringFrameworkCoreApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(SpringFrameworkCoreApplication.class);
+    @Bean
+    public String stringBean(){
+        return "My first Spring Application";
+    }
 
     public static void main(String[] args) {
         ApplicationContext context=SpringApplication.run(SpringFrameworkCoreApplication.class, args);
@@ -39,8 +46,8 @@ public class SpringFrameworkCoreApplication {
         Volador volador=context.getBean(Volador.class);
         volador.volar();
 
-        EnviromentService env= context.getBean(EnviromentService.class);
-        log.info("{}",env.getEnviromentService());
+//        EnviromentService env= context.getBean(EnviromentService.class);
+//        log.info("{}",env.getEnviromentService());
 
         BeanSingleton singleton=context.getBean(BeanSingleton.class);
         BeanSingleton singleton2=context.getBean(BeanSingleton.class);
@@ -58,7 +65,14 @@ public class SpringFrameworkCoreApplication {
         log.info("{}",beanPrototype.getBean());
         log.info("{}",beanPrototype2.getBean());
 
+        String stringBean = context.getBean("stringBean",String.class);
+        String stringBean2 = context.getBean(String.class);
 
+        log.info("{}",stringBean);
+        log.info("{}",stringBean2);
+
+        MultipleBeans envs=context.getBean(MultipleBeans.class);
+        envs.printEnviroments();
 
     }
 
