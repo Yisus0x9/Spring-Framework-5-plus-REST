@@ -12,6 +12,8 @@ import org.yisus.spring.spring_framework_core.qualifiers.Animal;
 import org.yisus.spring.spring_framework_core.qualifiers.Nido;
 import org.yisus.spring.spring_framework_core.qualifiers.Perro;
 import org.yisus.spring.spring_framework_core.qualifiers.Volador;
+import org.yisus.spring.spring_framework_core.scopes.BeanPrototype;
+import org.yisus.spring.spring_framework_core.scopes.BeanSingleton;
 import org.yisus.spring.spring_framework_core.setter.PC;
 
 @SpringBootApplication
@@ -39,6 +41,25 @@ public class SpringFrameworkCoreApplication {
 
         EnviromentService env= context.getBean(EnviromentService.class);
         log.info("{}",env.getEnviromentService());
+
+        BeanSingleton singleton=context.getBean(BeanSingleton.class);
+        BeanSingleton singleton2=context.getBean(BeanSingleton.class);
+        BeanPrototype beanPrototype=context.getBean(BeanPrototype.class);
+        BeanPrototype beanPrototype2=context.getBean(BeanPrototype.class);
+
+        log.info("{}",singleton.getBean());
+        log.info("{}",singleton2.getBean());
+        log.info("{}",beanPrototype.getBean());
+        log.info("{}",beanPrototype2.getBean());
+        singleton2.setName("singleton2, hemos modificado el name");
+        beanPrototype2.setName("beanPrototype2, hemos modificado el name");
+        log.info("{}",singleton.getBean());
+        log.info("{}",singleton2.getBean());
+        log.info("{}",beanPrototype.getBean());
+        log.info("{}",beanPrototype2.getBean());
+
+
+
     }
 
 }
