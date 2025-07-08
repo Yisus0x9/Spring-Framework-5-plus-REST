@@ -29,7 +29,7 @@ public class SpringFrameworkCoreApplication {
 
     public static void main(String[] args) {
         ApplicationContext context=SpringApplication.run(SpringFrameworkCoreApplication.class, args);
-
+/*
 
 //        Motor motor = new Motor("Ford", 2020);
 //        Coche coche = new Coche("Ford", 2020, motor);
@@ -70,7 +70,7 @@ public class SpringFrameworkCoreApplication {
 
         log.info("{}",stringBean);
         log.info("{}",stringBean2);
-
+        */
         MultipleBeans envs=context.getBean(MultipleBeans.class);
         envs.printEnviroments();
 
