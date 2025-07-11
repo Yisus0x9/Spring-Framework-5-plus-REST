@@ -1,9 +1,11 @@
 package org.yisus.spring.ciclo_de_vida;
 
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 @Component
+@Lazy
 public class SpringBean implements BeanNameAware {
     private String name;
 

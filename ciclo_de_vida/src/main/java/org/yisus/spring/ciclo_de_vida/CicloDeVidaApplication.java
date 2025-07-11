@@ -18,7 +18,9 @@ public class CicloDeVidaApplication {
 //	}
 	public static void main(String[] args) {
 
-		SpringApplication.run(CicloDeVidaApplication.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(CicloDeVidaApplication.class, args);
+		LifeCycleBean lifeCycleBean=context.getBean(LifeCycleBean.class);
+
 	}
 
 }

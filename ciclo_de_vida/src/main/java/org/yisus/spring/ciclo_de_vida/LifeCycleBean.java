@@ -8,11 +8,12 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component(value = "myBean")
-@Scope("singleton")
+@Scope("singleton") // Por defecto es singleton
 public class LifeCycleBean implements BeanNameAware, InitializingBean, DisposableBean {
 
 
