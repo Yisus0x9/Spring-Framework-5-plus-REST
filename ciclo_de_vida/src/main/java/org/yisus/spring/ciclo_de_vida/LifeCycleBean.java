@@ -33,7 +33,7 @@ public class LifeCycleBean implements BeanNameAware, InitializingBean, Disposabl
 
     @PostConstruct
     public void init(){
-        log.info("LyfeCycleBean init");
+        log.info("LifeCycleBean init");
         log.info("Verficando dependencia: {}",springBean);
     }
 
@@ -54,13 +54,13 @@ public class LifeCycleBean implements BeanNameAware, InitializingBean, Disposabl
 
     @PreDestroy
     public void preDestroy(){
-        log.info("LyfeCycleBean Pre-destroy");
+        log.info("LifeCycleBean Pre-destroy");
         log.info("Verficando dependencia: {}",springBean);
     }
 
     @Override
     public void destroy() throws Exception {
-        log.info("LyfeCycleBean destroy");
+        log.info("LifeCycleBean destroy");
         log.info("Verficando dependencia: {}",springBean);
     }
 }
