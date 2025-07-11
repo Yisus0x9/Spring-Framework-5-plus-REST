@@ -5,16 +5,25 @@ import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component(value = "myBean")
-@Scope("prototype")
-public class LifeCycleBean implements BeanNameAware {
+@Scope("singleton")
+public class LifeCycleBean implements BeanNameAware, InitializingBean, DisposableBean {
+
+
     private SpringBean springBean;
     private static Logger log = LoggerFactory.getLogger(LifeCycleBean.class.getName());
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info("afterPropertiesSet");
+        log.info("Verficando dependencia: {}",springBean);
+    }
 
     @Autowired
     public LifeCycleBean(SpringBean springBean) {
@@ -44,9 +53,14 @@ public class LifeCycleBean implements BeanNameAware {
     }
 
     @PreDestroy
-    public void destroy(){
-        log.info("LyfeCycleBean destroy");
+    public void preDestroy(){
+        log.info("LyfeCycleBean Pre-destroy");
         log.info("Verficando dependencia: {}",springBean);
     }
 
+    @Override
+    public void destroy() throws Exception {
+        log.info("LyfeCycleBean destroy");
+        log.info("Verficando dependencia: {}",springBean);
+    }
 }
