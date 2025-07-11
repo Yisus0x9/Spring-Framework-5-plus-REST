@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class BeanSingleton {
     private String name;
 
-    public BeanSingleton( @Value("singleton")String name) {
+    public BeanSingleton( @Value("${bean.name.singleton}")String name) {
         this.name = name;
     }
 

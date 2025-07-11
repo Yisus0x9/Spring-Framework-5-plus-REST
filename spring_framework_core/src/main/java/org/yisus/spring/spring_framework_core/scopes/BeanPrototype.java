@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class BeanPrototype {
     private String name;
 
-    public BeanPrototype( @Value("prototype")String name) {
+    public BeanPrototype( @Value("${bean.name.prototype}")String name) {
         this.name = name;
     }
 

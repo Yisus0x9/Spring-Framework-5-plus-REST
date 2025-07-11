@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.expression.Expression;
+import org.springframework.expression.ExpressionParser;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.yisus.spring.spring_framework_core.atributo.Coche;
 import org.yisus.spring.spring_framework_core.autowire.MultipleBeans;
 import org.yisus.spring.spring_framework_core.constructor.PlacaMadre;
@@ -28,8 +31,9 @@ public class SpringFrameworkCoreApplication {
     }
 
     public static void main(String[] args) {
+        /*
         ApplicationContext context=SpringApplication.run(SpringFrameworkCoreApplication.class, args);
-/*
+
 
 //        Motor motor = new Motor("Ford", 2020);
 //        Coche coche = new Coche("Ford", 2020, motor);
@@ -70,9 +74,14 @@ public class SpringFrameworkCoreApplication {
 
         log.info("{}",stringBean);
         log.info("{}",stringBean2);
-        */
+
         MultipleBeans envs=context.getBean(MultipleBeans.class);
         envs.printEnviroments();
+        */
+
+        ExpressionParser expressionParser=new SpelExpressionParser();
+        Expression expression = expressionParser.parseExpression("100+30");
+        log.info("{}", expression.getValue());
 
     }
 
