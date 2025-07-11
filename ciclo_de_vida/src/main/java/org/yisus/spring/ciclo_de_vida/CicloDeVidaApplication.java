@@ -5,16 +5,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class CicloDeVidaApplication {
 
 	private static Logger log = LoggerFactory.getLogger(CicloDeVidaApplication.class);
+
+	@Bean(initMethod = "init",destroyMethod = "destroy")
+	public ExplicitBean explicitBean(){
+		return new ExplicitBean();
+	}
 	public static void main(String[] args) {
 
 		SpringApplication.run(CicloDeVidaApplication.class, args);
-		ConfigurableApplicationContext context = SpringApplication.run(CicloDeVidaApplication.class, args);
-		context.getBean(LyfeCycleBean.class);
 	}
 
 }
