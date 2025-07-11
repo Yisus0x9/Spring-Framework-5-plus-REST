@@ -6,9 +6,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component(value = "myBean")
+@Scope("prototype")
 public class LifeCycleBean implements BeanNameAware {
     private SpringBean springBean;
     private static Logger log = LoggerFactory.getLogger(LifeCycleBean.class.getName());
