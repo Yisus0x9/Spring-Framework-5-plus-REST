@@ -6,8 +6,8 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class YisusBeanPostProccesor implements BeanPostProcessor {
-    private static final Logger logger = LoggerFactory.getLogger(YisusBeanPostProccesor.class);
+public class YisusBeanPostProcessor implements BeanPostProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(YisusBeanPostProcessor.class);
 
 
     // Este método se ejecuta antes de que el bean sea inicializado
