@@ -15,14 +15,15 @@ Este repositorio contiene mis notas personales del curso **"Spring Framework 5 +
 Las notas están organizadas por temas y contienen:
 
 - ✅ Conceptos clave explicados de forma clara
-- ✅ Ejemplos prácticos y código comentado
+- ✅ Todo los ejemplos del curso estan documentados en las notas
+- ✅ Ejemplos prácticos y documentación en las notas
 - ✅ Diagramas y esquemas visuales
 - ✅ Tips y mejores prácticas
 - ✅ Ejercicios adicionales y soluciones
 
 ## 🌐 Ver las Notas Online
 
-Las notas están disponibles en línea a través de Notion:
+Las notas están disponibles en línea a través de Notion, es recomendable ver las notas primero y basarse en el repositorio para consulta:
 
 **👉 [Acceder a las Notas - Spring Framework 5 + REST](Spring Framework 5 + REST)**
 
