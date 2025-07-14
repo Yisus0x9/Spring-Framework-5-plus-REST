@@ -25,7 +25,7 @@ Las notas están organizadas por temas y contienen:
 
 Las notas están disponibles en línea a través de Notion, es recomendable ver las notas primero y basarse en el repositorio para consulta:
 
-**👉 [Acceder a las Notas - Spring Framework 5 + REST](Spring Framework 5 + REST)**
+**👉 [Acceder a las Notas - Spring Framework 5 + REST](https://topaz-parade-3cd.notion.site/Spring-Framework-5-REST-22821b66349b8082b888ed81560c03c1)**
 
 ## 📝 Estructura del Contenido
 
