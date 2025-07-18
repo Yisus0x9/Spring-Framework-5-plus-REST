@@ -5,13 +5,14 @@ import org.springframework.context.annotation.Primary;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "profiles")
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "nickname", nullable = false)
@@ -21,11 +22,11 @@ public class Profile {
     @Column(name = "birthdate")
     private Date birthDate;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

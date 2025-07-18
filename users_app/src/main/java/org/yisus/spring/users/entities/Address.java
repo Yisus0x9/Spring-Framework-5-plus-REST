@@ -3,13 +3,14 @@ package org.yisus.spring.users.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 
 @Entity
 @Table(name = "address")
 public class Address {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
     @Column(name = "street", nullable = false)
     private String street;
     @Column(name = "number", nullable = false)
@@ -19,11 +20,11 @@ public class Address {
     @ManyToOne(fetch = FetchType.LAZY)
     private Profile profile;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

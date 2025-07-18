@@ -3,65 +3,56 @@ package org.yisus.spring.users.services;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
-import org.yisus.spring.users.models.User;
+import org.yisus.spring.users.entities.User;
+import org.yisus.spring.users.repositories.UserRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserService {
     @Autowired
-    private  Faker faker;
+    private UserRepository userRepository;
     @Autowired
-    @Qualifier("list")
-    private List<User> users;
-
+    private Faker faker;
 
     @PostConstruct
     public void init(){
-        for (int i = 0; i < 100; i++) {
-           users.add(new User(faker.name().name(),faker.funnyName().name(),
-                   faker.internet().emailAddress(),faker.internet().password()));
+        for (int i = 0; i < 50; i++) {
+            User user = new User();
+            user.setName(faker.name().firstName());
+            user.setNickname(faker.funnyName().name());
+            user.setEmail(faker.internet().emailAddress());
+            user.setPassword(String.format("password%s", i));
+            userRepository.save(user);
         }
     }
 
-    public User createUser(User user) throws ResponseStatusException {
-        if(users.stream().anyMatch(u -> u.getEmail().equals(user.getEmail()))){
-            throw  new ResponseStatusException(HttpStatus.CONFLICT,String.format("user whith email %s already exists", user.getEmail()));
+    public User save(User user) {
+        return userRepository.save(user);
+    }
+    public User findById(UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist."));
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public User update(User user,UUID id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User with id " + id + " does not exist.");
         }
-        users.add(user);
-        return user;
+        return userRepository.save(user);
     }
 
-    public User getUserByName(String name){
-        return users.stream().filter(user->user.getName().equals(name)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with name %s not found", name)));
-    }
-
-    public User getUserByEmail(String email){
-        return users.stream().filter(user->user.getEmail().equals(email)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with email %s not found", email)));
-    }
-
-    public List<User> getUsers(String contains) {
-        if (contains!=null) {
-            return users.stream().filter(user -> user.getName().contains(contains))
-                    .toList();
+    public String delete(UUID id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User with id " + id + " does not exist.");
         }
-        return users;
-    }
-
-    public User updateUser(User user, String email) throws ResponseStatusException {
-        User existingUser = getUserByEmail(email);
-        existingUser.setName(user.getName());
-        existingUser.setNickname(user.getNickname());
-        existingUser.setPassword(user.getPassword());
-        return existingUser;
-    }
-
-    public String deleteUser(String email) throws ResponseStatusException {
-        users.remove(getUserByEmail(email));
-        return "User with email " + email + " deleted";
+        userRepository.deleteById(id);
+        return "User with id " + id + " deleted successfully.";
     }
 }

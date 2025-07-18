@@ -3,12 +3,13 @@ package org.yisus.spring.users.entities;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @Table(name = "user_in_role")
 public class UserInRole {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -16,11 +17,11 @@ public class UserInRole {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.yisus.spring.users.models.User;
+import org.yisus.spring.users.entities.User;
 import org.yisus.spring.users.services.UserService;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -17,27 +18,27 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers(@RequestParam(value = "contain",required = false) String contain) {
-        return new ResponseEntity<>(userService.getUsers(contain), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
 
-    @GetMapping(value="/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
-        return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
+    @GetMapping(value="/{id}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("id") UUID id) {
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
+        return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
-    @PutMapping(value="/{email}")
-    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("email") String email) {
-        return new ResponseEntity<>(userService.updateUser(user, email), HttpStatus.OK);
+    @PutMapping(value="/{id}")
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("id") UUID id) {
+        return new ResponseEntity<>(userService.update(user, id), HttpStatus.OK);
     }
 
-    @DeleteMapping(value="/{email}")
-    public ResponseEntity<String> deleteUser(@PathVariable("email") String email) {
-        return new ResponseEntity<>(userService.deleteUser(email), HttpStatus.OK);
+    @DeleteMapping(value="/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable("id") UUID id) {
+        return new ResponseEntity<>(userService.delete(id), HttpStatus.OK);
     }
 }
