@@ -18,13 +18,18 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<User>> getUsers(@RequestParam(value = "contain",required = false) String contain) {
-        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(contain), HttpStatus.OK);
     }
 
 
     @GetMapping(value="/{id}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable("id") UUID id) {
+    public ResponseEntity<User> getUserById(@PathVariable("id") UUID id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value="/byEmail/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(userService.findByEmail(email), HttpStatus.OK);
     }
 
     @PostMapping

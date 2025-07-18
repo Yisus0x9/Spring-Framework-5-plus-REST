@@ -37,7 +37,16 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist."));
     }
 
-    public List<User> findAll() {
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " does not exist."));
+    }
+
+    public List<User> findAll(String contain) {
+        if(contain != null && !contain.isEmpty()) {
+            return userRepository.findByNameContains(contain)
+                    .orElseThrow(() -> new IllegalArgumentException("No users found containing: " + contain));
+        }
         return userRepository.findAll();
     }
 
