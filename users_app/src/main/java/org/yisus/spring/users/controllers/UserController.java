@@ -1,6 +1,7 @@
 package org.yisus.spring.users.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers(@RequestParam(value = "contain",required = false) String contain) {
-        return new ResponseEntity<>(userService.findAll(contain), HttpStatus.OK);
+    public ResponseEntity<Page<User>> getUsers(@RequestParam(value = "contain",required = false) String contain,
+                                               @RequestParam(value = "page", defaultValue = "0",required = false) Integer page,
+                                               @RequestParam(value = "size", defaultValue = "1000",required = false) Integer size) {
+        return new ResponseEntity<>(userService.findAll(contain,page,size), HttpStatus.OK);
     }
 
 
