@@ -35,6 +35,7 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+
     public User findById(UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist."));
@@ -55,6 +56,9 @@ public class UserService {
         return userRepository.findAll(PageRequest.of(page, size));
     }
 
+    public Page<String> findAllEmails(Integer page, Integer size) {
+        return userRepository.findAllEmails(PageRequest.of(page, size));
+    }
 
     public User update(User user,UUID id) {
         if (!userRepository.existsById(id)) {
