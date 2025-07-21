@@ -2,15 +2,17 @@ package org.yisus.spring.users.services;
 
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
+import org.hibernate.annotations.Cache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.yisus.spring.users.entities.User;
 import org.yisus.spring.users.repositories.UserRepository;
-
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +21,7 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private Faker faker;
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @PostConstruct
     public void init(){
@@ -47,8 +50,14 @@ public class UserService {
     }
 
 
-
+    @Cacheable(value = "users", key = "#contain + '-' + #page + '-' + #size")
     public Page<User> findAll(String contain, Integer page, Integer size) {
+        log.info("Finding all users");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         if(contain != null && !contain.isEmpty()) {
             return userRepository.findByNameContains(contain, PageRequest.of(page, size))
                     .orElseThrow(() -> new IllegalArgumentException("No users found containing: " + contain));
@@ -67,6 +76,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @CacheEvict(value = "users", allEntries = true)
     public String delete(UUID id) {
         if (!userRepository.existsById(id)) {
             throw new IllegalArgumentException("User with id " + id + " does not exist.");

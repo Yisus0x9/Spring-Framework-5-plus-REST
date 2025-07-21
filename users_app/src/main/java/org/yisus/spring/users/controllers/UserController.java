@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserService userService;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Operation(
             summary = "Obtener todos los usuarios",
@@ -42,6 +45,7 @@ public class UserController {
     public ResponseEntity<Page<User>> getUsers(@RequestParam(value = "contain",required = false) String contain,
                                                @RequestParam(value = "page", defaultValue = "0",required = false) Integer page,
                                                @RequestParam(value = "size", defaultValue = "1000",required = false) Integer size) {
+        log.info("Get /users?contain={}&page={}&size={}", contain, page, size);
         return new ResponseEntity<>(userService.findAll(contain,page,size), HttpStatus.OK);
     }
 
