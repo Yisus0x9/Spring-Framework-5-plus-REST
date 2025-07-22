@@ -22,6 +22,10 @@ public class Profile {
     @Column(name = "birthdate")
     private Date birthDate;
 
+    @OneToOne(cascade = CascadeType.ALL,optional = false)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private User user;
+
     public UUID getId() {
         return id;
     }
@@ -46,13 +50,28 @@ public class Profile {
         this.nickname = nickname;
     }
 
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

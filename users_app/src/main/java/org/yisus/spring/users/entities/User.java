@@ -21,12 +21,6 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false,length = 10)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="profile_id", referencedColumnName = "id")
-    private Profile profile;
-
-
-
     public UUID getId() {
         return id;
     }
@@ -67,13 +61,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
