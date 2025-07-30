@@ -10,7 +10,9 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import org.yisus.spring.users.entities.User;
 import org.yisus.spring.users.repositories.UserRepository;
 import java.util.UUID;
@@ -21,7 +23,6 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private Faker faker;
-    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @PostConstruct
     public void init(){
@@ -41,26 +42,20 @@ public class UserService {
 
     public User findById(UUID id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " does not exist."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with id %s does not exist.",id)));
     }
 
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " does not exist."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with email %s does not exist.",email)));
     }
 
 
     @Cacheable(value = "users", key = "#contain + '-' + #page + '-' + #size")
     public Page<User> findAll(String contain, Integer page, Integer size) {
-        log.info("Finding all users");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         if(contain != null && !contain.isEmpty()) {
             return userRepository.findByNameContains(contain, PageRequest.of(page, size))
-                    .orElseThrow(() -> new IllegalArgumentException("No users found containing: " + contain));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("Not found users contain %s ",contain)));
         }
         return userRepository.findAll(PageRequest.of(page, size));
     }
@@ -71,7 +66,7 @@ public class UserService {
 
     public User update(User user,UUID id) {
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User with id " + id + " does not exist.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with id %s does not exist.",id));
         }
         return userRepository.save(user);
     }
@@ -79,7 +74,7 @@ public class UserService {
     @CacheEvict(value = "users", allEntries = true)
     public String delete(UUID id) {
         if (!userRepository.existsById(id)) {
-            throw new IllegalArgumentException("User with id " + id + " does not exist.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,String.format("User with id %s does not exist.",id));
         }
         userRepository.deleteById(id);
         return "User with id " + id + " deleted successfully.";

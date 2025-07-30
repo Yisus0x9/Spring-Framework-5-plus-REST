@@ -21,9 +21,9 @@ public class RoleController {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Role> getRoleById(@PathVariable UUID id) {
-        return new ResponseEntity<>(roleService.findById(id), HttpStatus.OK);
+    @GetMapping(value = "/{roleId}")
+    public ResponseEntity<Role> getRoleById(@PathVariable UUID roleId) {
+        return new ResponseEntity<>(roleService.findById(roleId), HttpStatus.OK);
     }
 
     @PostMapping
@@ -31,13 +31,13 @@ public class RoleController {
         return new ResponseEntity<>(roleService.save(role), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable UUID id) {
-        return new ResponseEntity<>(roleService.update(role, id), HttpStatus.OK);
+    @PutMapping(value = "/{roleId}")
+    public ResponseEntity<Role> updateRole(@RequestBody Role role, @PathVariable UUID roleId) {
+        return new ResponseEntity<>(roleService.update(role, roleId), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deleteRole(@PathVariable UUID id) {
-        return new ResponseEntity<>(roleService.delete(id),HttpStatus.OK);
+    @DeleteMapping(value = "/{roleId}")
+    public ResponseEntity<String> deleteRole(@PathVariable UUID roleId) {
+        return new ResponseEntity<>(roleService.delete(roleId),HttpStatus.OK);
     }
 }

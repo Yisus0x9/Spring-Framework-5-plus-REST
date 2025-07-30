@@ -3,13 +3,14 @@ package org.yisus.spring.users.entities;
 import jakarta.persistence.*;
 import org.springframework.context.annotation.Primary;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "profiles")
-public class Profile {
+public class Profile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;

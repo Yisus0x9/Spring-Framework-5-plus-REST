@@ -2,12 +2,13 @@ package org.yisus.spring.users.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name="roles")
-public class Role {
+public class Role implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "name", nullable = false)

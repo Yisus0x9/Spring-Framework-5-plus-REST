@@ -2,13 +2,14 @@ package org.yisus.spring.users.entities;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
 
 
 @Entity
 @Table(name = "address")
-public class Address {
+public class Address implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @Column(name = "street", nullable = false)
@@ -17,7 +18,7 @@ public class Address {
     private String number;
     @Column(name = "city", nullable = false)
     private String city;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Profile profile;
 
     public UUID getId() {

@@ -1,5 +1,6 @@
 package org.yisus.spring.users.services;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -8,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.yisus.spring.users.entities.Role;
 import org.yisus.spring.users.repositories.RoleRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +18,16 @@ public class RoleService {
     @Autowired
     private  RoleRepository repository;
 
+
+    @PostConstruct
+    public void init(){
+       List<String> roles = List.of("ADMIN", "USER", "GUEST", "MODERATOR", "SUPER_ADMIN");
+       roles.forEach(role -> {
+              Role r = new Role();
+              r.setName(role);
+                repository.save(r);
+       });
+    }
 
     public List<Role> findAll() {
         return repository.findAll();

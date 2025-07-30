@@ -19,4 +19,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     public Optional<Page<User>> findByNameContains(String contain, Pageable pageable);
 
     @Query("SELECT u.email FROM User u")
-    public Page<String> findAllEmails(Pageable pageable);}
+    public Page<String> findAllEmails(Pageable pageable);
+}
