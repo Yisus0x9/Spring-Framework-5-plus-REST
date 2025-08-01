@@ -1,9 +1,11 @@
 package org.yisus.spring.users.services;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.security.RolesAllowed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import org.yisus.spring.users.entities.Role;
@@ -29,6 +31,8 @@ public class RoleService {
        });
     }
 
+    //@Secured("ROLE_SUPER_ADMIN") Anotación propia de Spring
+    @RolesAllowed(value = {"SUPER_ADMIN","ADMIN"}) // Anotación de Jakarta
     public List<Role> findAll() {
         return repository.findAll();
     }
