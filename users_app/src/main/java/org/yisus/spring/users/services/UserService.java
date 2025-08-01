@@ -13,8 +13,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.yisus.spring.users.entities.Role;
 import org.yisus.spring.users.entities.User;
+import org.yisus.spring.users.entities.UserInRole;
+import org.yisus.spring.users.repositories.RoleRepository;
+import org.yisus.spring.users.repositories.UserInRoleRepository;
 import org.yisus.spring.users.repositories.UserRepository;
+
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -22,17 +29,30 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private UserInRoleRepository userInRoleRepository;
+    @Autowired
     private Faker faker;
+
+    private static final Logger log= LoggerFactory.getLogger(UserService.class);
+
 
     @PostConstruct
     public void init(){
+        List<Role>  roles= roleRepository.findAll();
         for (int i = 0; i < 10000; i++) {
             User user = new User();
-            user.setName(faker.name().firstName());
+            user.setName(faker.name().firstName()+ i);
             user.setNickname(faker.funnyName().name());
             user.setEmail(faker.internet().emailAddress()+i);
             user.setPassword(String.format("%s", i));
-            userRepository.save(user);
+            User save = userRepository.save(user);
+            UserInRole userInRole=new UserInRole();
+            userInRole.setUser(save);
+            userInRole.setRole(roles.get(new Random().nextInt(5)));
+            UserInRole userInRoleSave = userInRoleRepository.save(userInRole);
+            log.info("{}",String.format("User {%s | %s}created whit role %s",save.getName(),save.getPassword(),userInRoleSave.getRole().getName()));
         }
     }
 

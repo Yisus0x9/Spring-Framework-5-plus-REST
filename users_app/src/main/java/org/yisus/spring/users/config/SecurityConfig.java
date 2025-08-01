@@ -6,20 +6,17 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.function.Function;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
 
+    /*
+    inMemoryAuthentication, we register 2 users each one with roles
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails admin = User.builder()
@@ -34,7 +31,7 @@ public class SecurityConfig  {
                 roles("user")
                 .build();
         return new InMemoryUserDetailsManager(admin,user);
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
