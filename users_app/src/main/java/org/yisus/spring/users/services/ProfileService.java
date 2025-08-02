@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.yisus.spring.users.anotations.AccessControlAuthorization;
 import org.yisus.spring.users.entities.Profile;
 import org.yisus.spring.users.entities.User;
 import org.yisus.spring.users.repositories.ProfileRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@AccessControlAuthorization
 public class ProfileService {
     @Autowired
     private ProfileRepository profileRepository;

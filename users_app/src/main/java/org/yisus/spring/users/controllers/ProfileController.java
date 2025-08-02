@@ -21,6 +21,11 @@ public class ProfileController {
 
     @GetMapping()
     public ResponseEntity<Page<Profile>> getProfiles(@RequestParam(name = "contain",required = false) String contain, @RequestParam(name="page",required = false,defaultValue = "0") Integer page, @RequestParam(name="size",required = false,defaultValue = "100")Integer size) {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return new ResponseEntity<>(profileService.findAll(contain,page,size), HttpStatus.OK);
     }
 
